@@ -1,22 +1,31 @@
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import { Header } from '../components/Header.jsx';
-import { products } from '../../backend/products.js';       
+    
 import './HomePage.css';
 export function HomePage() {
+  const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
      useEffect(() =>
         {
-            axios.get('http://localhost:5000/api/products')
+        axios.get('http://localhost:5000/api/products')
       .then((response) => {
-        console.log(response.data);
-      }); }, []);
+        setProducts(response.data);
+      }); 
+    
+    axios.get('http://localhost:5000/api/carts-items')
+      .then((response)=>{
+        setCart(response.data);
+      })}, []);
+
+      
         
   return (
     <>
       <title>Ecommerce Project</title>
 
      
-      <Header />
+      <Header cart={cart} />
 
       <div className="home-page">
         <div className="products-grid">
