@@ -1,11 +1,21 @@
+import axios from 'axios';
+import { useEffect } from 'react';
 import { Header } from '../components/Header.jsx';
 import { products } from '../../backend/products.js';       
 import './HomePage.css';
 export function HomePage() {
+     useEffect(() =>
+        {
+            axios.get('http://localhost:5000/api/products')
+      .then((response) => {
+        console.log(response.data);
+      }); }, []);
+        
   return (
     <>
       <title>Ecommerce Project</title>
 
+     
       <Header />
 
       <div className="home-page">
